@@ -122,8 +122,8 @@ $thredded-messageboards-grid: true !default;
 $thredded-messageboards-grid-item-padding-x: ($thredded-base-spacing * 0.8) !default;
 $thredded-messageboards-grid-item-padding-y: $thredded-base-spacing !default;
 // Spacing between grid items, must be set in the same unit as the border width
-$thredded-messageboards-grid-item-gutter-x: 10px !default;
-$thredded-messageboards-grid-item-gutter-y: 10px !default;
+$thredded-messageboards-grid-item-gutter-x: 12px !default;
+$thredded-messageboards-grid-item-gutter-y: 20px !default;
 // The width of the border around a grid item
 $thredded-messageboards-grid-item-border-width: 2px !default;
 $thredded-messageboards-grid-item-border-color: rgb(52,116,133);
