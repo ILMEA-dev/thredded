@@ -6,6 +6,8 @@
   position: absolute;
   top: 0;
   width: 30%;
+  border: 1px solid $thredded-secondary-text-color;
+  border-radius: 100px;
 
   @include thredded-media-tablet-and-down {
     position: initial;
@@ -19,8 +21,6 @@
   input[type="search"] {
     box-shadow: none;
     width: 100%;
-    border: 1px solid $thredded-secondary-text-color;
-    border-radius: 100px;
 
     @include thredded-media-desktop-and-up {
       $line-height: 1rem;
