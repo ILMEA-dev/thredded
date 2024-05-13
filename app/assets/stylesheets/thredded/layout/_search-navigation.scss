@@ -35,11 +35,11 @@
       margin-bottom: 0;
 
       &, &:focus {
-        transition: background, border-color, box-shadow, min-width 0.15s ease-out 0s;
+        // transition: background, border-color, box-shadow, min-width 0.15s ease-out 0s;
       }
 
       &:focus, &:not(:placeholder-shown) {
-        background: $thredded-background-color;
+        // background: $thredded-background-color;
         box-shadow: none;
         margin-right: 0;
         margin-left: 0;
