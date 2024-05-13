@@ -13,6 +13,7 @@
   margin-bottom: -$thredded-messageboards-grid-item-border-width;
   padding: $thredded-base-spacing;
   position: relative;
+  border-radius: 5px;
 
   &, &:focus, &:hover, &:active {
     border: $thredded-messageboards-grid-item-border-width solid $thredded-messageboards-grid-item-border-color;
