@@ -48,7 +48,7 @@
       }
 
       &:hover {
-        border-color: transparent;
+        // border-color: transparent;
         box-shadow: none;
       }
 
@@ -90,7 +90,7 @@
       }
 
       &:focus, &:not(:placeholder-shown) {
-        border-color: $thredded-base-border-color;
+        // border-color: $thredded-base-border-color;
       }
     }
   }
