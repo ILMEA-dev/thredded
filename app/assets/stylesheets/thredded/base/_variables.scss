@@ -125,8 +125,8 @@ $thredded-messageboards-grid-item-padding-y: $thredded-base-spacing !default;
 $thredded-messageboards-grid-item-gutter-x: 10px !default;
 $thredded-messageboards-grid-item-gutter-y: 10px !default;
 // The width of the border around a grid item
-$thredded-messageboards-grid-item-border-width: 1px !default;
-$thredded-messageboards-grid-item-border-color: #459ab1;
+$thredded-messageboards-grid-item-border-width: 2px !default;
+$thredded-messageboards-grid-item-border-color: #347485;
     // If one of the gutters is 0 the borders will be collapsed by overlap.
     // Ensure their color does not have and alpha component:
     // if($thredded-messageboards-grid-item-gutter-x == 0 or $thredded-messageboards-grid-item-gutter-y == 0,
