@@ -24,8 +24,8 @@
 
     @include thredded-media-desktop-and-up {
       $line-height: 1rem;
-      background: transparent;
-      border-color: transparent;
+      // background: transparent;
+      // border-color: transparent;
       font-size: $thredded-font-size-small;
       line-height: $line-height;
       min-width: 13rem;
