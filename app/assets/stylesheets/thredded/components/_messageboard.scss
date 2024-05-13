@@ -14,6 +14,7 @@
   padding: $thredded-base-spacing;
   position: relative;
   border-radius: 5px;
+  border: 2px solid rgb(52,116,133);
   box-shadow: 2px 4px 4px 0px rgba(#000, 0.34)
 
   &, &:focus, &:hover, &:active {
