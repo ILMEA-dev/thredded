@@ -19,12 +19,7 @@ module Thredded
           user: @user,
           title: first_topic_title
         )
-        Thredded::Post.create!(
-          messageboard: @messageboard,
-          user: @user,
-          postable: topic,
-          content: first_topic_content
-        )
+
         true
       end
     end
