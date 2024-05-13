@@ -16,13 +16,13 @@
 .thredded--navigation-breadcrumbs {
   @extend %thredded--list-unstyled;
   font-size: 1.5em;
-  color: $thredded-action-color;
 
   li {
     display: block;
 
     a {
       display: block;
+      color: $thredded-action-color;
     }
 
     @include thredded-media-tablet-and-down {
