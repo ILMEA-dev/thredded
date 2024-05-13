@@ -38,7 +38,13 @@
     @extend %thredded--nav-link;
     display: inline-block;
     color: $thredded-secondary-nav-color;
+    font-weight: 500;
     padding: $thredded-small-spacing 0;
+
+    &:hover {
+      color: rgb(31 41 55);
+      font-weight: 800;
+    }
   }
 
   &:last-child {
