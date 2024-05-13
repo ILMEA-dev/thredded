@@ -2,6 +2,7 @@
   @extend %thredded--nav-tabs;
   display: flex;
   justify-content: flex-end;
+  padding-bottom: 16px;
   @media print {
     display: none;
   }
