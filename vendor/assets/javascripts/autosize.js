@@ -1,16 +1,16 @@
 /** https://unpkg.com/autosize@4.0.2/dist/autosize.js **/
 // Modified to always define the autosize global.
 // This allows Thredded code to be compatible with both Webpack and Sprockets.
-(function (global, factory) {
+(function(global, factory) {
   var mod = {
     exports: {}
   };
   factory(mod, mod.exports);
   global.autosize = mod.exports;
-})(window, function (module, exports) {
+})(window, function(module, exports) {
   'use strict';
 
-  var map = typeof Map === "function" ? new Map() : function () {
+  var map = typeof Map === "function" ? new Map() : function() {
     var keys = [];
     var values = [];
 
@@ -129,7 +129,7 @@
       clientWidth = ta.clientWidth;
 
       // prevents scroll-position jumping
-      overflows.forEach(function (el) {
+      overflows.forEach(function(el) {
         el.node.scrollTop = el.scrollTop;
       });
 
@@ -182,14 +182,14 @@
       }
     };
 
-    var destroy = function (style) {
+    var destroy = function(style) {
       window.removeEventListener('resize', pageResize, false);
       ta.removeEventListener('input', update, false);
       ta.removeEventListener('keyup', update, false);
       ta.removeEventListener('autosize:destroy', destroy, false);
       ta.removeEventListener('autosize:update', update, false);
 
-      Object.keys(style).forEach(function (key) {
+      Object.keys(style).forEach(function(key) {
         ta.style[key] = style[key];
       });
 
@@ -246,28 +246,28 @@
     autosize = function autosize(el) {
       return el;
     };
-    autosize.destroy = function (el) {
+    autosize.destroy = function(el) {
       return el;
     };
-    autosize.update = function (el) {
+    autosize.update = function(el) {
       return el;
     };
   } else {
     autosize = function autosize(el, options) {
       if (el) {
-        Array.prototype.forEach.call(el.length ? el : [el], function (x) {
+        Array.prototype.forEach.call(el.length ? el : [el], function(x) {
           return assign(x, options);
         });
       }
       return el;
     };
-    autosize.destroy = function (el) {
+    autosize.destroy = function(el) {
       if (el) {
         Array.prototype.forEach.call(el.length ? el : [el], destroy);
       }
       return el;
     };
-    autosize.update = function (el) {
+    autosize.update = function(el) {
       if (el) {
         Array.prototype.forEach.call(el.length ? el : [el], update);
       }
