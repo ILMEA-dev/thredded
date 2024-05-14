@@ -4,6 +4,10 @@
   line-height: $thredded-heading-line-height;
   margin: 0 0 $thredded-small-spacing;
   color: #00164e;
+
+  &:hover {
+    color: #459ab1;
+  }
 }
 
 %thredded--link {
