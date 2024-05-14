@@ -6,8 +6,8 @@
   position: absolute;
   top: 0;
   width: 30%;
-  border: 1px solid $thredded-secondary-text-color;
-  z-index: 10000;
+  // border: 1px solid $thredded-secondary-text-color;
+  // z-index: 10000;
 
   @include thredded-media-tablet-and-down {
     position: initial;
