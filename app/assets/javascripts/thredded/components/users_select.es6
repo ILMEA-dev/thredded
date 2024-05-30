@@ -10,7 +10,7 @@
   const COMPONENT_SELECTOR = '[data-thredded-users-select]';
 
   Thredded.UsersSelect = {
-    DROPDOWN_MAX_COUNT: 6,
+    DROPDOWN_MAX_COUNT: 15,
   };
 
   function parseNames(text) {

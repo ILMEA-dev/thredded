@@ -3,7 +3,7 @@
 const ThreddedMentionAutocompletion = {
   MATCH_RE: /(^@|\s@)"?([\w., \-()]+[\w.,\-()])$/,
   // the last letter has to not be a space so it doesn't match after replacement
-  DROPDOWN_MAX_COUNT: 6,
+  DROPDOWN_MAX_COUNT: 15,
 
   init(form, textarea) {
     const editor = new Textcomplete.editors.Textarea(textarea);
