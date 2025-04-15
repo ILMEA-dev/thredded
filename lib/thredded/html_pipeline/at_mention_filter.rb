@@ -47,11 +47,14 @@ module Thredded
         return if names.blank? || @users_provider.nil?
         @users_provider.call(names, @users_provider_scope).each do |user|
           name = user.send(Thredded.user_name_column)
+          email = user.email
+
           maybe_quoted_name = /[., ()]/.match?(name) ? %("#{name}") : name
-          url = Thredded.user_path(@view_context, user)
+          mailto_link = "mailto:#{ERB::Util.html_escape(email)}"
+
           text_node_html.gsub!(
             /(^|[\s>])(@#{Regexp.escape maybe_quoted_name})([^a-z\d]|$)/i,
-            %(\\1<a href="#{ERB::Util.html_escape url}">@#{ERB::Util.html_escape maybe_quoted_name}</a>\\3)
+            %(\\1<a href="#{mailto_link}">@#{ERB::Util.html_escape maybe_quoted_name}</a>\\3)
           )
         end
       end
