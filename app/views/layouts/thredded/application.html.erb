@@ -6,6 +6,7 @@
     <%= stylesheet_link_tag 'thredded', 'data-turbolinks-track': 'reload' %>
     <%= csrf_meta_tag %>
     <%= csp_meta_tag %>
+    <%= javascript_pack_tag "application", "data-turbo-track": "reload", defer: true %>
     <%= javascript_include_tag 'thredded',
                                async: !Rails.application.config.assets.debug,
                                defer: true,
