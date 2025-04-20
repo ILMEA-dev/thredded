@@ -9,6 +9,7 @@
   margin: 0 auto;
   max-width: $thredded-grid-container-max-width;
   padding: 0;
+  background-color: white;
 
   @include thredded-media-tablet-and-up {
     padding: 0 2rem $thredded-small-spacing 2rem;

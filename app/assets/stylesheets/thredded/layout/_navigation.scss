@@ -3,6 +3,7 @@
   .thredded--icon {
     display: none;
   }
+  background-color: whute;
 }
 
 @include thredded-media-tablet-and-down {
@@ -91,7 +92,7 @@
     &--moderation {
       @extend %icon-nav-item;
       &--pending-count {
-        @extend %icon-counter
+        @extend %icon-counter;
       }
     }
     &--moderation.thredded--is-current ~ &--settings,
