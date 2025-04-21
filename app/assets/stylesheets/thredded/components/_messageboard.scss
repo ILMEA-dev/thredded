@@ -2,7 +2,7 @@
   box-sizing: border-box;
   &--title {
     font-size: 1.5em;
-    margin: 1.5em 0 0.5em;
+    margin: 0.5em 0 0.5em;
   }
 }
 
@@ -18,9 +18,12 @@
   box-shadow: 1px 3px 3px 0px rgba(#000, 0.21);
   background: #f6fafb;
 
-
-  &, &:focus, &:hover, &:active {
-    border: $thredded-messageboards-grid-item-border-width solid $thredded-messageboards-grid-item-border-color;
+  &,
+  &:focus,
+  &:hover,
+  &:active {
+    border: $thredded-messageboards-grid-item-border-width solid
+      $thredded-messageboards-grid-item-border-color;
   }
 
   &:hover {
@@ -154,7 +157,8 @@
         margin: (-$margin-y) (-$margin-x);
 
         // Size incomplete last rows with up to two missing items.
-        &::after, &::before {
+        &::after,
+        &::before {
           @extend %thredded--messageboards-cell-flex;
           box-sizing: border-box;
           content: "";
@@ -162,7 +166,7 @@
         }
 
         &::before {
-          order: 1
+          order: 1;
         }
       }
 
@@ -175,7 +179,8 @@
         @extend %thredded--messageboards-cell-flex;
         margin-top: $margin-y;
         margin-bottom: $margin-y;
-        padding: $thredded-messageboards-grid-item-padding-y $thredded-messageboards-grid-item-padding-x;
+        padding: $thredded-messageboards-grid-item-padding-y
+          $thredded-messageboards-grid-item-padding-x;
       }
     }
   }
