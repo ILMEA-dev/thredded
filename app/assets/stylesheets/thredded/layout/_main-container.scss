@@ -9,7 +9,7 @@
   margin: 0 auto;
   max-width: $thredded-grid-container-max-width;
   padding: 0;
-  background-color: #efefef;
+  background-color: #efefef !important;
   border-radius: 5px;
 
   @include thredded-media-tablet-and-up {
