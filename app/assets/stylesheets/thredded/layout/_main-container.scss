@@ -10,7 +10,9 @@
   max-width: $thredded-grid-container-max-width;
   padding: 0;
   background-color: #efefef;
-  border-radius: 5px @include thredded-media-tablet-and-up {
+  border-radius: 5px;
+
+  @include thredded-media-tablet-and-up {
     padding: 0 8rem $thredded-small-spacing 8rem;
   }
 }
