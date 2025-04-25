@@ -27,7 +27,6 @@ module Thredded
         "thredded--global-nav-icons-#{global_nav_icons_count}",
         ('thredded--is-moderator' if thredded_moderator?),
         ('thredded--private-messaging-enabled' if Thredded.private_messaging_enabled),
-        'custom-styles-main'
       ].compact
     end
 
