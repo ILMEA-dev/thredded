@@ -6,6 +6,7 @@
   position: absolute;
   top: 0;
   width: 30%;
+  background-color: white;
   // border: 1px solid $thredded-secondary-text-color;
   // z-index: 10000;
 
@@ -34,11 +35,13 @@
       margin-top: -1px;
       margin-bottom: 0;
 
-      &, &:focus {
+      &,
+      &:focus {
         // transition: background, border-color, box-shadow, min-width 0.15s ease-out 0s;
       }
 
-      &:focus, &:not(:placeholder-shown) {
+      &:focus,
+      &:not(:placeholder-shown) {
         // background: $thredded-background-color;
         box-shadow: none;
         margin-right: 0;
@@ -60,7 +63,8 @@
         max-height: $line-height;
       }
 
-      &:placeholder-shown, &:not(:focus) {
+      &:placeholder-shown,
+      &:not(:focus) {
         // On Chrome, the search [x] takes up space even when invisible,
         // breaking the placeholder positioning. Remove it:
         &::-webkit-search-cancel-button,
@@ -89,7 +93,8 @@
         }
       }
 
-      &:focus, &:not(:placeholder-shown) {
+      &:focus,
+      &:not(:placeholder-shown) {
         // border-color: $thredded-base-border-color;
       }
     }
