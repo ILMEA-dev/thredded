@@ -14,6 +14,10 @@
                             show_messageboard_group_path(group.id),
                             class: 'thredded--link' %>
             </h3>
+          <% else %>
+            <h3 class="thredded--messageboards-group--title">
+              <span class='thredded--link'>"Misc."</span>
+            </h3>
           <% end %>
           <div class="thredded--messageboards-group">
             <%= view_hooks.messageboards_index.group.render self, group: group do %>
