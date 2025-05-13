@@ -103,7 +103,18 @@
 }
 
 .thredded--messageboard--delete {
-  background-color: $thredded-alert-danger-color;
+  border: 2px solid $thredded-alert-danger-color;
+  border-radius: 4px;
+  padding: 8px 16px;
+  margin-top: 16px;
+  background-color: transparent;
+  color: $thredded-alert-danger-color;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $thredded-alert-danger-color;
+    color: white;
+  }
 }
 
 .thredded--messageboards--actions {
