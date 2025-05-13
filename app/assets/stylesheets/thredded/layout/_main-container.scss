@@ -11,6 +11,6 @@
   padding: 0;
 
   @include thredded-media-tablet-and-up {
-    padding: 0 8rem $thredded-small-spacing 8rem;
+    padding: 0 8rem $thredded-small-spacing 2rem;
   }
 }
