@@ -1,0 +1,11 @@
+.thredded--user-email {
+  margin-left: 0.3rem;
+  color: $thredded-secondary-text-color;
+  vertical-align: middle;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+
+  &:hover {
+    opacity: 1;
+  }
+} 
