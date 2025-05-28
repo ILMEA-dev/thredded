@@ -77,6 +77,10 @@ module Thredded
       render plain: Thredded::ContentFormatter.quote_content(post.content)
     end
 
+    def post_params
+      params.require(:post).permit(:content, :parent_post_id)
+    end
+
     private
 
     def canonical_topic_params

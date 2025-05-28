@@ -1,6 +1,6 @@
 <% post, content = post_and_content if local_assigns.key?(:post_and_content) %>
 <%= render 'thredded/posts_common/before_first_unread_post', post: post if post.first_unread_in_page? %>
-<%= content_tag :article, id: dom_id(post), class: "thredded--post thredded--#{post.read_state}--post" do %>
+<%= content_tag :article, id: dom_id(post), class: "thredded--post thredded--#{post.read_state}--post <%= 'is-child' if post.parent_post_id.present? %>" do %>
   <%= render 'thredded/posts_common/actions', post: post, actions: local_assigns[:actions] %>
   <%= render 'thredded/posts_common/header', post: post %>
   <%= content || render('thredded/posts/content', post: post) %>
@@ -10,5 +10,12 @@
     <p class="thredded--alert thredded--alert-danger">
       <%= render 'thredded/shared/content_moderation_blocked_state', moderation_record: post.last_moderation_record %>
     </p>
+  <% end %>
+  <%= link_to 'Reply', new_messageboard_topic_post_path(post.messageboard, post.postable, post: { parent_post_id: post.id }) %>
+
+  <% if post.child_posts.any? %>
+    <div class="comments">
+      <%= render partial: 'thredded/posts/post', collection: post.child_posts.ordered_by_thread %>
+    </div>
   <% end %>
 <% end %>
