@@ -77,6 +77,17 @@ module Thredded
       render plain: Thredded::ContentFormatter.quote_content(post.content)
     end
 
+    def reply
+      authorize_reading post
+      @post_form = Thredded::PostForm.new(
+        user: thredded_current_user,
+        topic: post.postable,
+        post_params: { parent_id: post.id }
+      )
+      authorize_creating @post_form.post
+      render :new
+    end
+
     private
 
     def canonical_topic_params

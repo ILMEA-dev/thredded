@@ -11,4 +11,12 @@
       <%= render 'thredded/shared/content_moderation_blocked_state', moderation_record: post.last_moderation_record %>
     </p>
   <% end %>
+  <div class="thredded--post-reply">
+    <%= link_to t('thredded.posts.reply'), reply_messageboard_topic_post_path(@messageboard, @topic, post), class: 'thredded--post-reply-button' %>
+  </div>
+  <% if post.replies.any? %>
+    <div class="thredded--post-replies">
+      <%= render partial: 'thredded/posts/reply', collection: post.replies %>
+    </div>
+  <% end %>
 <% end %>
