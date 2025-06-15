@@ -25,8 +25,7 @@ module Thredded
       end
       @post.attributes = post_params.merge(
         user: (user unless user.thredded_anonymous?),
-        messageboard: topic.messageboard,
-        parent_id: post_params[:parent_id]
+        messageboard: topic.messageboard
       )
     end
 
