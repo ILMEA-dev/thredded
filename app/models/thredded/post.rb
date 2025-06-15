@@ -74,6 +74,10 @@ module Thredded
       Thredded.user_class.thredded_messageboards_readers([messageboard])
     end
 
+    def parent_id?
+      parent_id.present?
+    end
+
     private
 
     def parent_belongs_to_same_topic
