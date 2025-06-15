@@ -129,3 +129,20 @@
     overflow-x: auto;
   }
 }
+
+.thredded--post-replies {
+  margin-left: 2rem; // Indent replies
+  margin-top: 1rem;
+}
+
+.thredded--post-reply {
+  margin-top: 0.5rem;
+}
+
+.thredded--post-reply-button {
+  color: $thredded-action-color;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+}

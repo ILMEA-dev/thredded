@@ -22,6 +22,14 @@ module Thredded
                foreign_key:   :user_id,
                counter_cache: true,
                optional: true
+    belongs_to :parent,
+               class_name: 'Thredded::Post',
+               optional: true
+    has_many :replies,
+             class_name: 'Thredded::Post',
+             foreign_key: :parent_id,
+             dependent: :destroy,
+             inverse_of: :parent
     has_many :moderation_records,
              class_name: 'Thredded::PostModerationRecord',
              dependent: :nullify
@@ -33,6 +41,7 @@ module Thredded
             class_name: 'Thredded::PostModerationRecord'
 
     validates :messageboard_id, presence: true
+    validate :parent_belongs_to_same_topic, if: :parent_id?
 
     after_commit :update_parent_last_user_and_time_from_last_post, on: %i[create destroy]
     after_commit :update_parent_last_user_and_time_from_last_post_if_moderation_state_changed, on: :update
@@ -65,7 +74,18 @@ module Thredded
       Thredded.user_class.thredded_messageboards_readers([messageboard])
     end
 
+    def parent_id?
+      parent_id.present?
+    end
+
     private
+
+    def parent_belongs_to_same_topic
+      return unless parent && postable
+      unless parent.postable_id == postable_id
+        errors.add(:parent_id, 'must belong to the same topic')
+      end
+    end
 
     def auto_follow_and_notify
       return unless user

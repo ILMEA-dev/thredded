@@ -1,0 +1,12 @@
+<%= content_tag :article, id: dom_id(reply), class: "thredded--post thredded--reply" do %>
+  <%= render 'thredded/posts_common/header', post: reply %>
+  <%= render 'thredded/posts/content', post: reply %>
+  <div class="thredded--post-reply">
+    <%= link_to t('thredded.posts.reply'), reply_messageboard_topic_post_path(@messageboard, @topic, reply), class: 'thredded--post-reply-button' %>
+  </div>
+  <% if reply.replies.any? %>
+    <div class="thredded--post-replies">
+      <%= render partial: 'thredded/posts/reply', collection: reply.replies %>
+    </div>
+  <% end %>
+<% end %> 
