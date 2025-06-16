@@ -78,6 +78,10 @@ module Thredded
       parent_id.present?
     end
 
+    def truth?
+      true
+    end
+
     private
 
     def parent_belongs_to_same_topic
