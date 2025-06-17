@@ -22,6 +22,7 @@ module Thredded
                foreign_key:   :user_id,
                counter_cache: true,
                optional: true
+    belongs_to :parent, class_name: 'Thredded::Post', optional: true
     has_many :moderation_records,
              class_name: 'Thredded::PostModerationRecord',
              dependent: :nullify
