@@ -347,4 +347,47 @@ module Thredded
       end
     end
   end
+
+  describe Post, 'nested replies' do
+    let(:topic) { create(:topic) }
+    let(:user) { create(:user) }
+    let(:root_post) { create(:post, postable: topic, user: user) }
+    let(:reply1) { create(:post, postable: topic, user: user, parent: root_post) }
+    let(:reply2) { create(:post, postable: topic, user: user, parent: root_post) }
+    let(:another_root_post) { create(:post, postable: topic, user: user) }
+
+    describe 'scopes' do
+      it 'finds root posts' do
+        root_post
+        reply1
+        expect(Post.root_posts).to contain_exactly(root_post, another_root_post)
+      end
+
+      it 'finds replies' do
+        root_post
+        reply1
+        expect(Post.replies).to contain_exactly(reply1, reply2)
+      end
+
+      it 'orders posts with replies correctly' do
+        travel_to(1.hour.ago) { root_post }
+        travel_to(30.minutes.ago) { reply1 }
+        travel_to(45.minutes.ago) { another_root_post }
+        travel_to(15.minutes.ago) { reply2 }
+
+        ordered_posts = Post.ordered_with_replies
+        expect(ordered_posts).to eq([root_post, reply1, reply2, another_root_post])
+      end
+    end
+
+    describe 'associations' do
+      it 'has many replies' do
+        expect(root_post.replies).to contain_exactly(reply1, reply2)
+      end
+
+      it 'belongs to parent' do
+        expect(reply1.parent).to eq(root_post)
+      end
+    end
+  end
 end

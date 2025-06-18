@@ -8,6 +8,14 @@
   border-radius: 5px !important;
   box-shadow: 1px 3px 3px 0px rgba(0, 0, 0, 0.21) !important;
   padding: 10px !important;
+
+  &--reply {
+    margin-left: 2rem;
+    border-left: 3px solid #4a90e2 !important;
+    @include thredded-media-desktop-and-up {
+      margin-left: 3rem;
+    }
+  }
 }
 
 .thredded--post--dropdown--toggle {
