@@ -181,5 +181,26 @@ module Thredded
         end
       end
     end
+
+    describe 'GET show' do
+      let(:topic) { create(:topic, messageboard: @messageboard) }
+      let(:user) { create(:user) }
+      let(:root_post) { create(:post, postable: topic, user: user) }
+      let(:reply1) { create(:post, postable: topic, user: user, parent: root_post) }
+      let(:reply2) { create(:post, postable: topic, user: user, parent: root_post) }
+      let(:another_root_post) { create(:post, postable: topic, user: user) }
+
+      before do
+        travel_to(1.hour.ago) { root_post }
+        travel_to(30.minutes.ago) { reply1 }
+        travel_to(45.minutes.ago) { another_root_post }
+        travel_to(15.minutes.ago) { reply2 }
+      end
+
+      it 'orders posts with replies correctly' do
+        get :show, params: { messageboard_id: @messageboard.slug, id: topic.slug }
+        expect(assigns(:posts).posts).to eq([root_post, reply1, reply2, another_root_post])
+      end
+    end
   end
 end
