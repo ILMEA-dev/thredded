@@ -44,6 +44,14 @@ module Thredded
     scope :root_posts, -> { where(parent_id: nil) }
     scope :replies, -> { where.not(parent_id: nil) }
     scope :ordered_by_created_at, -> { order(created_at: :asc) }
+    scope :ordered_with_replies, -> {
+      # First get all root posts ordered by creation time
+      root_posts = where(parent_id: nil).order(created_at: :asc)
+      # Then get all replies ordered by creation time
+      replies = where.not(parent_id: nil).order(created_at: :asc)
+      # Combine them into a single array
+      root_posts + replies
+    }
 
     after_commit :update_parent_last_user_and_time_from_last_post, on: %i[create destroy]
     after_commit :update_parent_last_user_and_time_from_last_post_if_moderation_state_changed, on: :update
