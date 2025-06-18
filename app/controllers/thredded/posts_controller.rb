@@ -14,14 +14,20 @@ module Thredded
 
     def new
       @post_form = Thredded::PostForm.new(
-        user: thredded_current_user, topic: parent_topic, post_params: new_post_params
+        user: thredded_current_user,
+        topic: parent_topic,
+        post_params: new_post_params,
+        parent_post: parent_post
       )
       authorize_creating @post_form.post
     end
 
     def create
       @post_form = Thredded::PostForm.new(
-        user: thredded_current_user, topic: parent_topic, post_params: new_post_params
+        user: thredded_current_user,
+        topic: parent_topic,
+        post_params: new_post_params,
+        parent_post: parent_post
       )
       authorize_creating @post_form.post
 
@@ -30,6 +36,17 @@ module Thredded
       else
         render :new
       end
+    end
+
+    def reply
+      @post_form = Thredded::PostForm.new(
+        user: thredded_current_user,
+        topic: parent_topic,
+        post_params: new_post_params,
+        parent_post: post
+      )
+      authorize_creating @post_form.post
+      render :new
     end
 
     def edit
@@ -103,6 +120,11 @@ module Thredded
 
     def post
       @post ||= Thredded::Post.find!(params[:id])
+    end
+
+    def parent_post
+      return nil unless params[:post_id]
+      @parent_post ||= Thredded::Post.find(params[:post_id])
     end
 
     def current_page
