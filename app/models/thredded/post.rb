@@ -48,7 +48,7 @@ module Thredded
       # Use a UNION to combine root posts and replies while maintaining the order
       root_posts = where(parent_id: nil).order(created_at: :asc)
       replies = where.not(parent_id: nil).order(created_at: :asc)
-      from("(#{root_posts.to_sql} UNION ALL #{replies.to_sql}) AS thredded_posts")
+      from("((#{root_posts.to_sql}) UNION ALL (#{replies.to_sql})) AS thredded_posts")
     }
 
     after_commit :update_parent_last_user_and_time_from_last_post, on: %i[create destroy]
