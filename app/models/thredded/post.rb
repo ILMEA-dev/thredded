@@ -23,6 +23,11 @@ module Thredded
                counter_cache: true,
                optional: true
     belongs_to :parent, class_name: 'Thredded::Post', optional: true
+    has_many :replies,
+             class_name: 'Thredded::Post',
+             foreign_key: 'parent_id',
+             dependent: :destroy,
+             inverse_of: :parent
     has_many :moderation_records,
              class_name: 'Thredded::PostModerationRecord',
              dependent: :nullify
@@ -34,6 +39,11 @@ module Thredded
             class_name: 'Thredded::PostModerationRecord'
 
     validates :messageboard_id, presence: true
+
+    # Scopes for handling nested replies
+    scope :root_posts, -> { where(parent_id: nil) }
+    scope :replies, -> { where.not(parent_id: nil) }
+    scope :ordered_by_created_at, -> { order(created_at: :asc) }
 
     after_commit :update_parent_last_user_and_time_from_last_post, on: %i[create destroy]
     after_commit :update_parent_last_user_and_time_from_last_post_if_moderation_state_changed, on: :update
