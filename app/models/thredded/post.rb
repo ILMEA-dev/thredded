@@ -45,12 +45,10 @@ module Thredded
     scope :replies, -> { where.not(parent_id: nil) }
     scope :ordered_by_created_at, -> { order(created_at: :asc) }
     scope :ordered_with_replies, -> {
-      # First get all root posts ordered by creation time
+      # Use a UNION to combine root posts and replies while maintaining the order
       root_posts = where(parent_id: nil).order(created_at: :asc)
-      # Then get all replies ordered by creation time
       replies = where.not(parent_id: nil).order(created_at: :asc)
-      # Combine them into a single array
-      root_posts + replies
+      from("(#{root_posts.to_sql} UNION ALL #{replies.to_sql}) AS thredded_posts")
     }
 
     after_commit :update_parent_last_user_and_time_from_last_post, on: %i[create destroy]
@@ -77,6 +75,11 @@ module Thredded
 
     def private_topic_post?
       false
+    end
+
+    # @return [Boolean] whether this post can be replied to
+    def can_reply?
+      !postable.locked? && !blocked?
     end
 
     # @return [ActiveRecord::Relation<Thredded.user_class>] users that can read this post.
