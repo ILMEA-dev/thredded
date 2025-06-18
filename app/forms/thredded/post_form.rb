@@ -2,7 +2,7 @@
 
 module Thredded
   class PostForm
-    attr_reader :post, :topic
+    attr_reader :post, :topic, :parent_post
     delegate :id,
              :persisted?,
              :content,
@@ -13,9 +13,11 @@ module Thredded
     # @param topic [Topic]
     # @param post [Post]
     # @param post_params [Hash]
-    def initialize(user:, topic:, post: nil, post_params: {})
+    # @param parent_post [Post] optional parent post for replies
+    def initialize(user:, topic:, post: nil, post_params: {}, parent_post: nil)
       @messageboard = topic.messageboard
       @topic = topic
+      @parent_post = parent_post
       @post = post || topic.posts.build
       user ||= Thredded::NullUser.new
 
@@ -25,7 +27,8 @@ module Thredded
       end
       @post.attributes = post_params.merge(
         user: (user unless user.thredded_anonymous?),
-        messageboard: topic.messageboard
+        messageboard: topic.messageboard,
+        parent: @parent_post
       )
     end
 
@@ -34,7 +37,11 @@ module Thredded
     end
 
     def submit_path
-      Thredded::UrlsHelper.url_for([@messageboard, @topic, @post, only_path: true])
+      if @parent_post
+        Thredded::UrlsHelper.url_for([@messageboard, @topic, @parent_post, :reply, only_path: true])
+      else
+        Thredded::UrlsHelper.url_for([@messageboard, @topic, @post, only_path: true])
+      end
     end
 
     def preview_path
@@ -51,6 +58,10 @@ module Thredded
       @post.save!
       Thredded::UserTopicReadState.touch!(@post.user.id, @post) unless was_persisted
       true
+    end
+
+    def reply?
+      @parent_post.present?
     end
   end
 end
