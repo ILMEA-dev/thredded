@@ -1,0 +1,20 @@
+<%# locals: posts, actions %>
+<% 
+  # Group posts by parent_id for hierarchical display
+  root_posts = posts.select { |post| post.parent_id.nil? }
+  replies_by_parent = posts.select { |post| post.parent_id.present? }.group_by(&:parent_id)
+%>
+
+<% root_posts.each do |post| %>
+  <%# Render the parent post %>
+  <%= render 'thredded/posts/post', post: post, actions: actions %>
+  
+  <%# Render all replies to this post %>
+  <% if replies_by_parent[post.id] %>
+    <div class="thredded--replies-container">
+      <% replies_by_parent[post.id].each do |reply| %>
+        <%= render 'thredded/posts/post', post: reply, actions: actions %>
+      <% end %>
+    </div>
+  <% end %>
+<% end %> 
