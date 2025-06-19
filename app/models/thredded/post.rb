@@ -51,8 +51,8 @@ module Thredded
       
       ordered_ids = build_nested_list(posts_by_parent).map(&:id)
       
-      # Return an ActiveRecord relation with the correct order
-      where(id: ordered_ids).order(Arel.sql("FIELD(id, #{ordered_ids.join(',')})"))
+      # Return an ActiveRecord relation with the correct order using PostgreSQL's CASE
+      where(id: ordered_ids).order(Arel.sql("CASE #{ordered_ids.map.with_index { |id, index| "WHEN id = #{id} THEN #{index}" }.join(' ') } END"))
     end
     
     def self.build_nested_list(posts_by_parent, parent_id = nil)
