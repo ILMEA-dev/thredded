@@ -27,7 +27,6 @@ module Thredded
           Thredded::ContentFormatter.quote_content(post_params.delete(:quote_post).content)
       end
       
-      # If we have a parent_post, add parent_id to the parameters
       if @parent_post
         post_params[:parent_id] = @parent_post.id
       end
