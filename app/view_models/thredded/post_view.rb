@@ -36,7 +36,7 @@ module Thredded
     end
 
     def can_reply?
-      @can_reply ||= @policy.create? && !@post.postable.locked? && !@post.blocked?
+      @can_reply ||= @policy.create? && !@post.postable.locked? && !@post.blocked? && @post.parent_id.nil?
     end
 
     def can_update?
