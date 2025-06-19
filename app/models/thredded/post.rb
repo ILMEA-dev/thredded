@@ -45,10 +45,12 @@ module Thredded
     scope :replies, -> { where.not(parent_id: nil) }
     scope :ordered_by_created_at, -> { order(created_at: :asc) }
     scope :ordered_with_replies, -> {
-      # Use a UNION to combine root posts and replies while maintaining the order
+      # Order root posts by creation time, then include their replies
       root_posts = where(parent_id: nil).order(created_at: :asc)
       replies = where.not(parent_id: nil).order(created_at: :asc)
-      from("((#{root_posts.to_sql}) UNION ALL (#{replies.to_sql})) AS thredded_posts")
+      
+      # Create a query that orders by parent_id (NULL first), then by created_at
+      order(Arel.sql('COALESCE(parent_id, id) ASC, created_at ASC'))
     }
 
     after_commit :update_parent_last_user_and_time_from_last_post, on: %i[create destroy]
