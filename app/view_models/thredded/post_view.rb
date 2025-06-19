@@ -17,6 +17,9 @@ module Thredded
              :cache_key_with_version,
              :parent_id,
              :messageboard,
+             :postable,
+             :id,
+             :private_topic_post?,
              to: :@post
 
     # @param post [Thredded::PostCommon]
