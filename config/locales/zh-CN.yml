@@ -9,31 +9,31 @@ zh-CN:
     emails:
       message_notification:
         html:
-          email_sent_reason_html: 我们给你发送这封邮件是因为 %{user} 在一个私人对话中提到你，"<a href="%{post_url}">%{topic_title}</a>"。
-          post_lead_html: '%{user} 在<a href="%{post_url}">""%{topic_title}"</a>中发表了新消息：'
+          email_sent_reason_html: 我们给你发送这封邮件是因为 %{user} 在一个私人对话中提到你，'<a href="%{post_url}">%{topic_title}</a>'。
+          post_lead_html: '%{user} 在<a href="%{post_url}">"%{topic_title}"</a>中发表了新消息：'
           unsubscribe_instructions_html: :thredded.emails.post_notification.html.unsubscribe_instructions_html
-        subject: "%{user} 在""%{topic_title}"中发表了新消息"
+        subject: '%{user} 在"%{topic_title}"中发表了新消息'
         text:
           email_sent_reason: |-
-            我们给你发送这封邮件是因为 %{user} 在一个私人对话中提到你，"%{topic_title}"。
+            我们给你发送这封邮件是因为 %{user} 在一个私人对话中提到你，'%{topic_title}'。
 
             请到以下浏览对话：
             %{post_url}
-          post_lead: "%{user} 在""%{topic_title}"中发表了新消息："
+          post_lead: '%{user} 在"%{topic_title}"中发表了新消息：'
           unsubscribe_instructions: :thredded.emails.post_notification.text.unsubscribe_instructions
       post_notification:
         html:
-          email_sent_reason_html: 我们给你发送这封邮件是因为你关注了帖子： "<a href="%{post_url}">%{topic_title}</a>"。
-          post_lead_html: '%{user} 在<a href="%{post_url}">""%{topic_title}"</a>中说到：'
+          email_sent_reason_html: 我们给你发送这封邮件是因为你关注了帖子： '<a href="%{post_url}">%{topic_title}</a>'。
+          post_lead_html: '%{user} 在<a href="%{post_url}">"%{topic_title}"</a>中说到：'
           unsubscribe_instructions_html: 退订这些邮件, 请前往<a href="%{preferences_url}">设置</a>。
-        subject: ""%{topic_title}"有新回复"
+        subject: '"%{topic_title}"有新回复'
         text:
           email_sent_reason: |-
-            我们给你发送这封邮件是因为你关注了这个帖子"%{topic_title}"。
+            我们给你发送这封邮件是因为你关注了这个帖子'%{topic_title}'。
 
             请到以下浏览帖子：
             %{post_url}
-          post_lead: "%{user} 在""%{topic_title}"中说到："
+          post_lead: '%{user} 在"%{topic_title}"中说到：'
           unsubscribe_instructions: |-
             退订这些邮件，请前往设置：
             %{unsubscribe_url}

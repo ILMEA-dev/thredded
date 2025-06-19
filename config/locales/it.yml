@@ -10,33 +10,33 @@ it:
       message_notification:
         html:
           email_sent_reason_html: >-
-            Ti è stata spedita questa mail perché %{user} ti ha incluso in una discussione privata, "<a href="%{post_url}">%{topic_title}</a>".
-          post_lead_html: 'Un nuovo messaggio da %{user} in <a href="%{post_url}">"<a href="%{post_url}">%{topic_title}"</a>:'
+            Ti è stata spedita questa mail perché %{user} ti ha incluso in una discussione privata, '<a href="%{post_url}">%{topic_title}</a>'.
+          post_lead_html: 'Un nuovo messaggio da %{user} in <a href="%{post_url}">"%{topic_title}"</a>:'
           unsubscribe_instructions_html: :thredded.emails.post_notification.html.unsubscribe_instructions_html
-        subject: Un nuovo messaggio di %{user} in "<a href="%{post_url}">%{topic_title}"</a>"
+        subject: 'Un nuovo messaggio in "%{topic_title}"'
         text:
           email_sent_reason: |-
-            Ti è stata spedita questa mail perché %{user} ti ha incluso nel discussione privata "<a href="%{post_url}">%{topic_title}"</a>".
+            Ti è stata spedita questa mail perché %{user} ti ha incluso nel discussione privata '%{topic_title}'.
 
             Vai qui per vedere la conversazione:
             %{post_url}
-          post_lead: 'Un nuovo messaggio di %{user} in "<a href="%{post_url}">%{topic_title}"</a>":'
+          post_lead: '%{user} ha detto in "%{topic_title}":'
           unsubscribe_instructions: :thredded.emails.post_notification.text.unsubscribe_instructions
       post_notification:
         html:
           email_sent_reason_html: >-
-            Questa email ti è stata spedita perché stai seguendo questa discussione: "<a href="%{post_url}">%{topic_title}</a>".
-          post_lead_html: '%{user} <a href="%{post_url}">ha detto in "<a href="%{post_url}">%{topic_title}"</a>":'
+            Questa email ti è stata spedita perché stai seguendo questa discussione: '<a href="%{post_url}">%{topic_title}</a>'.
+          post_lead_html: '%{user} <a href="%{post_url}">ha detto in "%{topic_title}"</a>:'
           unsubscribe_instructions_html: Per non ricevere più queste email, aggiorna le tue <a href="%{preferences_url}">preferenze</a>.
-        subject: Un nuovo messaggio in "<a href="%{post_url}">%{topic_title}"</a>"
+        subject: Un nuovo messaggio in "%{topic_title}"
         text:
           email_sent_reason: |-
             Questa email ti è stata spedita perché stai seguendo
-            la discussione "<a href="%{post_url}">%{topic_title}"</a>".
+            la discussione '%{topic_title}'.
 
             Vai qui per vedere la conversazione:
             %{post_url}
-          post_lead: "%{user} ha detto in "<a href="%{post_url}">%{topic_title}"</a>":"
+          post_lead: '%{user} ha detto in "%{topic_title}":'
           unsubscribe_instructions: |-
             Per non riceve più queste email, aggiorna qui le tue preferenze:
             %{unsubscribe_url}
