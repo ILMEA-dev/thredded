@@ -64,6 +64,9 @@ module Thredded
         ordered_posts.concat(children)
       end
       
+      # Debug: log what we're returning
+      Rails.logger.debug "ordered_with_replies: #{ordered_posts.map { |p| "Post #{p.id} (parent_id: #{p.parent_id})" }.join(', ')}"
+      
       # Return an ActiveRecord relation with the correct order
       where(id: ordered_posts.map(&:id)).order(Arel.sql("CASE #{ordered_posts.map.with_index { |post, index| "WHEN id = #{post.id} THEN #{index}" }.join(' ') } END"))
     end
