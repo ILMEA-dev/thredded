@@ -47,17 +47,20 @@ module Thredded
 
     def self.ordered_with_replies
       # Get all posts
-      all_posts = all.to_a
+      posts = all.to_a
       
-      # Get root posts (parent_id is null) ordered by created_at
-      root_posts = all_posts.select { |p| p.parent_id.nil? }.sort_by(&:created_at)
+      # Group posts by parent_id
+      posts_by_parent = posts.group_by(&:parent_id)
       
-      # Build the ordered list: root posts first, then their children
+      # Get root posts (parent_id is nil) ordered by created_at
+      root_posts = (posts_by_parent[nil] || []).sort_by(&:created_at)
+      
+      # Build the ordered list
       ordered_posts = []
       root_posts.each do |root_post|
         ordered_posts << root_post
         # Add all children of this root post, ordered by created_at
-        children = all_posts.select { |p| p.parent_id == root_post.id }.sort_by(&:created_at)
+        children = (posts_by_parent[root_post.id] || []).sort_by(&:created_at)
         ordered_posts.concat(children)
       end
       
