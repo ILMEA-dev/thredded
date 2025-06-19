@@ -12,6 +12,7 @@
 
 .thredded--post.thredded--post--reply {
   margin-left: 3rem !important;
+  background-color: red !important; /* Debug: make it obvious if this is applied */
   @include thredded-media-desktop-and-up {
     margin-left: 4rem !important;
   }
