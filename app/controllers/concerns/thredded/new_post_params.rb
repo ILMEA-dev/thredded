@@ -17,7 +17,7 @@ module Thredded
         end
 
         parent_id = p.delete(:parent_id)
-        if parent_id
+        if parent_id.present?
           post = Thredded::Post.find(parent_id)
           authorize_reading post
           p[:parent] = post
