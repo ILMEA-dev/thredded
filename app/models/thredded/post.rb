@@ -47,7 +47,9 @@ module Thredded
     scope :ordered_with_replies, -> {
       # Use a CASE statement to create a sort order that groups replies with their parents
       # Root posts get their own ID as the sort key, replies get their parent's ID
-      order(Arel.sql("CASE WHEN parent_id IS NULL THEN id ELSE parent_id END ASC, created_at ASC"))
+      scope = order(Arel.sql("CASE WHEN parent_id IS NULL THEN id ELSE parent_id END ASC, created_at ASC"))
+      Rails.logger.debug "ordered_with_replies SQL: #{scope.to_sql}"
+      scope
     }
 
     after_commit :update_parent_last_user_and_time_from_last_post, on: %i[create destroy]

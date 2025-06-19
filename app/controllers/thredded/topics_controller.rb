@@ -58,6 +58,10 @@ module Thredded
         .includes(:user, :messageboard)
         .ordered_with_replies
         .send(Kaminari.config.page_method_name, current_page)
+      
+      # Debug: log the posts and their order
+      Rails.logger.debug "Posts in order: #{page_scope.map { |p| "Post #{p.id} (parent_id: #{p.parent_id})" }.join(', ')}"
+      
       return redirect_to(last_page_params(page_scope)) if page_beyond_last?(page_scope)
       @posts = Thredded::TopicPostsPageView.new(thredded_current_user, topic, page_scope)
       Thredded::UserTopicReadState.touch!(thredded_current_user.id, page_scope.last) if thredded_signed_in?
