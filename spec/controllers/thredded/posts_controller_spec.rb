@@ -69,5 +69,31 @@ module Thredded
         end
       end
     end
+
+    describe 'GET reply' do
+      let!(:parent_post) { create(:post, postable: topic, content: 'parent') }
+      it 'assigns a PostForm with the correct parent_id' do
+        get :reply, params: { messageboard_id: messageboard.id, topic_id: topic.id, id: parent_post.id }
+        post_form = assigns(:post_form)
+        expect(post_form.parent_post).to eq(parent_post)
+        expect(post_form.post.parent_id).to eq(parent_post.id)
+      end
+    end
+
+    describe 'POST create' do
+      let!(:parent_post) { create(:post, postable: topic, content: 'parent') }
+      it 'creates a reply with the correct parent_id' do
+        expect {
+          post :create, params: {
+            messageboard_id: messageboard.id,
+            topic_id: topic.id,
+            post: { content: 'reply content', parent_id: parent_post.id }
+          }
+        }.to change(Thredded::Post, :count).by(1)
+        reply = Thredded::Post.order(:created_at).last
+        expect(reply.parent_id).to eq(parent_post.id)
+        expect(reply.parent).to eq(parent_post)
+      end
+    end
   end
 end
