@@ -46,9 +46,23 @@ module Thredded
     scope :ordered_by_created_at, -> { order(created_at: :asc) }
 
     def self.ordered_with_replies
-      # Simple approach: order by parent_id (NULL first), then by created_at
-      # This puts root posts first, then groups replies by their parent
-      order(:parent_id, :created_at)
+      # Get all posts
+      all_posts = all.to_a
+      
+      # Get root posts (parent_id is null) ordered by created_at
+      root_posts = all_posts.select { |p| p.parent_id.nil? }.sort_by(&:created_at)
+      
+      # Build the ordered list: root posts first, then their children
+      ordered_posts = []
+      root_posts.each do |root_post|
+        ordered_posts << root_post
+        # Add all children of this root post, ordered by created_at
+        children = all_posts.select { |p| p.parent_id == root_post.id }.sort_by(&:created_at)
+        ordered_posts.concat(children)
+      end
+      
+      # Return an ActiveRecord relation with the correct order
+      where(id: ordered_posts.map(&:id)).order(Arel.sql("CASE #{ordered_posts.map.with_index { |post, index| "WHEN id = #{post.id} THEN #{index}" }.join(' ') } END"))
     end
 
     after_commit :update_parent_last_user_and_time_from_last_post, on: %i[create destroy]
