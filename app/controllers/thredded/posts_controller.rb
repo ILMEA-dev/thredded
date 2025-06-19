@@ -39,11 +39,14 @@ module Thredded
     end
 
     def reply
+      Rails.logger.debug "PostsController#reply: params=#{params.inspect}"
+      Rails.logger.debug "PostsController#reply: parent_post=#{parent_post&.id}"
+      
       @post_form = Thredded::PostForm.new(
         user: thredded_current_user,
         topic: parent_topic,
         post_params: new_post_params,
-        parent_post: post
+        parent_post: parent_post
       )
       authorize_creating @post_form.post
       render :new

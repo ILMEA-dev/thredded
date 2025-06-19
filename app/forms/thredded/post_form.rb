@@ -31,10 +31,15 @@ module Thredded
         messageboard: topic.messageboard
       )
       
+      # Debug output
+      Rails.logger.debug "PostForm: parent_post=#{@parent_post&.id}, post_params=#{post_params.inspect}"
+      
       # Set the parent after attributes to ensure it's not overridden
       if @parent_post
+        Rails.logger.debug "PostForm: Setting parent_id to #{@parent_post.id}"
         @post.parent = @parent_post
         @post.parent_id = @parent_post.id
+        Rails.logger.debug "PostForm: After setting, parent_id=#{@post.parent_id}"
       end
     end
 
