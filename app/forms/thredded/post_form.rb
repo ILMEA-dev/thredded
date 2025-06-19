@@ -38,9 +38,9 @@ module Thredded
 
     def submit_path
       if @parent_post
-        Thredded::UrlsHelper.url_for([@messageboard, @topic, @parent_post, :reply, only_path: true])
+        Thredded::UrlsHelper.messageboard_topic_posts_path(@messageboard, @topic)
       else
-        Thredded::UrlsHelper.url_for([@messageboard, @topic, @post, only_path: true])
+        Thredded::UrlsHelper.messageboard_topic_posts_path(@messageboard, @topic)
       end
     end
 
