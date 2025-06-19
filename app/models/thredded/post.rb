@@ -44,21 +44,11 @@ module Thredded
     scope :root_posts, -> { where(parent_id: nil) }
     scope :replies, -> { where.not(parent_id: nil) }
     scope :ordered_by_created_at, -> { order(created_at: :asc) }
-    
+
     def self.ordered_with_replies
-      posts = order(:created_at).to_a
-      posts_by_parent = posts.group_by(&:parent_id)
-      
-      ordered_ids = build_nested_list(posts_by_parent).map(&:id)
-      
-      # Return an ActiveRecord relation with the correct order using PostgreSQL's CASE
-      where(id: ordered_ids).order(Arel.sql("CASE #{ordered_ids.map.with_index { |id, index| "WHEN id = #{id} THEN #{index}" }.join(' ') } END"))
-    end
-    
-    def self.build_nested_list(posts_by_parent, parent_id = nil)
-      (posts_by_parent[parent_id] || []).flat_map do |post|
-        [post] + build_nested_list(posts_by_parent, post.id)
-      end
+      # Simple approach: order by parent_id (NULL first), then by created_at
+      # This puts root posts first, then groups replies by their parent
+      order(:parent_id, :created_at)
     end
 
     after_commit :update_parent_last_user_and_time_from_last_post, on: %i[create destroy]
