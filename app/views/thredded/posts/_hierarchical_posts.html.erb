@@ -1,8 +1,8 @@
 <%# locals: posts, actions %>
 <% 
   # Group posts by parent_id for hierarchical display
-  root_posts = posts.select { |post| post.parent_id.nil? }
-  replies_by_parent = posts.select { |post| post.parent_id.present? }.group_by(&:parent_id)
+  root_posts = posts.select { |post| post.respond_to?(:parent_id) && post.parent_id.nil? }
+  replies_by_parent = posts.select { |post| post.respond_to?(:parent_id) && post.parent_id.present? }.group_by(&:parent_id)
 %>
 
 <% root_posts.each do |post| %>

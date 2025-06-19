@@ -9,7 +9,7 @@
                  'data-autocomplete-min-length' => Thredded.autocomplete_min_length,
                  'data-thredded-submit-hotkey' => true,
              } do |form| %>
-  <% if post.parent_id.present? %>
+  <% if post.respond_to?(:parent_id) && post.parent_id.present? %>
     <%= form.hidden_field :parent_id, value: post.parent_id %>
   <% end %>
   <ul class="thredded--form-list">
