@@ -55,8 +55,8 @@ module Thredded
       authorize topic, :read?
       return redirect_to(canonical_topic_params) unless params_match?(canonical_topic_params)
       page_scope = policy_scope(topic.posts)
-        .ordered_with_replies
         .includes(:user, :messageboard)
+        .ordered_with_replies
         .send(Kaminari.config.page_method_name, current_page)
       return redirect_to(last_page_params(page_scope)) if page_beyond_last?(page_scope)
       @posts = Thredded::TopicPostsPageView.new(thredded_current_user, topic, page_scope)
