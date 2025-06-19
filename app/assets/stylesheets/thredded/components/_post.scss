@@ -154,7 +154,6 @@
   }
   
   .thredded--post {
-    border-left: 3px solid #4a90e2 !important;
     margin-bottom: $thredded-base-spacing;
     
     @include thredded-media-desktop-and-up {
