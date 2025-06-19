@@ -26,13 +26,16 @@ module Thredded
           Thredded::ContentFormatter.quote_content(post_params.delete(:quote_post).content)
       end
       
-      # Set the parent first to ensure it's not overridden
-      @post.parent = @parent_post if @parent_post
-      
       @post.attributes = post_params.merge(
         user: (user unless user.thredded_anonymous?),
         messageboard: topic.messageboard
       )
+      
+      # Set the parent after attributes to ensure it's not overridden
+      if @parent_post
+        @post.parent = @parent_post
+        @post.parent_id = @parent_post.id
+      end
     end
 
     def self.for_persisted(post)
