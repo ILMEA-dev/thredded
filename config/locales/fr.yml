@@ -147,6 +147,8 @@ fr:
       quote_btn: Citer
       spoiler_summary: Spoiler - cliquez pour afficher.
       spoiler_summary_for_email: 'Spoiler - sélectionnez le contenu ci-dessous pour voir:'
+      actions:
+        reply: Répondre
     preferences:
       edit:
         page_title: :thredded.nav.settings
