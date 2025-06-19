@@ -31,6 +31,11 @@ module Thredded
         post_params[:parent_id] = @parent_post.id
       end
       
+      if post_params[:parent]
+        @post.parent = post_params[:parent]
+        post_params.delete(:parent)
+      end
+      
       @post.attributes = post_params.merge(
         user: (user unless user.thredded_anonymous?),
         messageboard: topic.messageboard
