@@ -48,10 +48,13 @@ module Thredded
     def self.ordered_with_replies
       posts = order(:created_at).to_a
       posts_by_parent = posts.group_by(&:parent_id)
-
-      build_nested_list(posts_by_parent)
+      
+      ordered_ids = build_nested_list(posts_by_parent).map(&:id)
+      
+      # Return an ActiveRecord relation with the correct order
+      where(id: ordered_ids).order(Arel.sql("FIELD(id, #{ordered_ids.join(',')})"))
     end
-
+    
     def self.build_nested_list(posts_by_parent, parent_id = nil)
       (posts_by_parent[parent_id] || []).flat_map do |post|
         [post] + build_nested_list(posts_by_parent, post.id)
