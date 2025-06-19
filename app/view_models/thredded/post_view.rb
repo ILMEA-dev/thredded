@@ -15,6 +15,7 @@ module Thredded
              :cache_key,
              :cache_version,
              :cache_key_with_version,
+             :parent_id,
              to: :@post
 
     # @param post [Thredded::PostCommon]
@@ -31,7 +32,7 @@ module Thredded
     end
 
     def can_reply?
-      @can_reply ||= @policy.create?
+      @can_reply ||= @policy.create? && !@post.postable.locked? && !@post.blocked?
     end
 
     def can_update?
