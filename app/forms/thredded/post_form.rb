@@ -26,21 +26,15 @@ module Thredded
           Thredded::ContentFormatter.quote_content(post_params.delete(:quote_post).content)
       end
       
+      # If we have a parent_post, add parent_id to the parameters
+      if @parent_post
+        post_params[:parent_id] = @parent_post.id
+      end
+      
       @post.attributes = post_params.merge(
         user: (user unless user.thredded_anonymous?),
         messageboard: topic.messageboard
       )
-      
-      # Debug output
-      Rails.logger.debug "PostForm: parent_post=#{@parent_post&.id}, post_params=#{post_params.inspect}"
-      
-      # Set the parent after attributes to ensure it's not overridden
-      if @parent_post
-        Rails.logger.debug "PostForm: Setting parent_id to #{@parent_post.id}"
-        @post.parent = @parent_post
-        @post.parent_id = @parent_post.id
-        Rails.logger.debug "PostForm: After setting, parent_id=#{@post.parent_id}"
-      end
     end
 
     def self.for_persisted(post)
