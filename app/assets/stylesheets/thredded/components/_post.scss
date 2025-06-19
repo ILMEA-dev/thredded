@@ -51,6 +51,14 @@
   @extend %thredded--dropdown-menu--actions--item;
 }
 
+.thredded--post--dropdown--actions--item[data-thredded-reply-post] {
+  color: $thredded-action-color;
+}
+
+.thredded--post--dropdown--actions--item[data-thredded-reply-post]:hover {
+  color: $thredded-action-hover-color;
+}
+
 .thredded--post--avatar {
   border-radius: 50%;
   display: inline-block;
