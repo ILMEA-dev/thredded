@@ -10,6 +10,15 @@
   padding: 10px !important;
 }
 
+.thredded--post.thredded--post--reply {
+  margin-left: 3rem !important;
+  border-left: 5px solid #4a90e2 !important;
+  background-color: #f8f9fa !important;
+  @include thredded-media-desktop-and-up {
+    margin-left: 4rem !important;
+  }
+}
+
 .thredded--post--dropdown--toggle {
   @extend %thredded--dropdown-menu--toggle;
   fill: currentColor;
