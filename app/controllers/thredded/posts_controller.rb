@@ -123,8 +123,8 @@ module Thredded
     end
 
     def parent_post
-      return nil unless params[:post_id]
-      @parent_post ||= Thredded::Post.find(params[:post_id])
+      return nil unless params[:id]
+      @parent_post ||= Thredded::Post.find(params[:id])
     end
 
     def current_page
