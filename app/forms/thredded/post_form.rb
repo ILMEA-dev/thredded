@@ -7,6 +7,7 @@ module Thredded
              :persisted?,
              :content,
              :content=,
+             :parent_id,
              to: :@post
 
     # @param user [Thredded.user_class]
