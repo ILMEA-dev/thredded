@@ -46,19 +46,14 @@ module Thredded
     scope :ordered_by_created_at, -> { order(created_at: :asc) }
 
     def self.ordered_with_replies
-      puts "=== ordered_with_replies called ==="
-      
       # Get all posts
       posts = all.to_a
-      puts "Total posts: #{posts.count}"
       
       # Group posts by parent_id
       posts_by_parent = posts.group_by(&:parent_id)
-      puts "Posts by parent: #{posts_by_parent.keys}"
       
       # Get root posts (parent_id is nil) ordered by created_at
       root_posts = (posts_by_parent[nil] || []).sort_by(&:created_at)
-      puts "Root posts: #{root_posts.map(&:id)}"
       
       # Build the ordered list
       ordered_posts = []
@@ -66,11 +61,8 @@ module Thredded
         ordered_posts << root_post
         # Add all children of this root post, ordered by created_at
         children = (posts_by_parent[root_post.id] || []).sort_by(&:created_at)
-        puts "Children of post #{root_post.id}: #{children.map(&:id)}"
         ordered_posts.concat(children)
       end
-      
-      puts "Final order: #{ordered_posts.map { |p| "Post #{p.id} (parent_id: #{p.parent_id})" }.join(', ')}"
       
       # Return an ActiveRecord relation with the correct order
       where(id: ordered_posts.map(&:id)).order(Arel.sql("CASE #{ordered_posts.map.with_index { |post, index| "WHEN id = #{post.id} THEN #{index}" }.join(' ') } END"))
