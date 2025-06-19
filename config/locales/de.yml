@@ -10,7 +10,7 @@ de:
       message_notification:
         html:
           email_sent_reason_html: >-
-            Sie erhalten diese E-Mail, da %{user} Sie zu einer privaten Diskussion hinzugefügt hat, "<a href="%{post_url}">%{topic_title}</a>".
+            Sie erhalten diese E-Mail, da %{user} Sie zu einer privaten Diskussion hinzugefügt hat, '<a href="%{post_url}">%{topic_title}</a>'.
           post_lead_html: 'Eine neue Nachricht von %{user} in <a href="%{post_url}">"%{topic_title}"</a>:'
           unsubscribe_instructions_html: :thredded.emails.post_notification.html.unsubscribe_instructions_html
         subject: Neue Nachricht von %{user} in "%{topic_title}"
@@ -37,7 +37,7 @@ de:
 
             Klicken sie hier um die Diskussion zu sehen:
             %{post_url}
-          post_lead: "%{user} schrieb in "%{topic_title}":"
+          post_lead: '%{user} schrieb in "%{topic_title}":'
           unsubscribe_instructions: |-
             Um keine weiteren E-Mails zu erhalten, ändern Sie hier ihre Benachrichtigungseinstellungen:
             %{unsubscribe_url}
