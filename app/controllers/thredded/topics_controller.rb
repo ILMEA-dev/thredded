@@ -54,40 +54,13 @@ module Thredded
     def show
       authorize topic, :read?
       return redirect_to(canonical_topic_params) unless params_match?(canonical_topic_params)
-      
-      # Get all posts with proper ordering
-      all_posts = policy_scope(topic.posts)
+      page_scope = policy_scope(topic.posts)
         .includes(:user, :messageboard)
         .ordered_with_replies
+        .send(Kaminari.config.page_method_name, current_page)
       
       # Debug: log the posts and their order
-      Rails.logger.debug "Posts in order: #{all_posts.map { |p| "Post #{p.id} (parent_id: #{p.parent_id})" }.join(', ')}"
-      
-      # Apply pagination manually since we now have an array
-      per_page = Kaminari.config.default_per_page
-      page = current_page
-      offset = (page - 1) * per_page
-      page_posts = all_posts[offset, per_page] || []
-      
-      # Create a simple wrapper that behaves like a paginated scope
-      page_scope = page_posts
-      def page_scope.total_pages
-        (@all_posts.size.to_f / @per_page).ceil
-      end
-      def page_scope.current_page
-        @current_page
-      end
-      def page_scope.limit_value
-        @per_page
-      end
-      def page_scope.last
-        self.last
-      end
-      
-      # Set instance variables for the methods
-      page_scope.instance_variable_set(:@all_posts, all_posts)
-      page_scope.instance_variable_set(:@per_page, per_page)
-      page_scope.instance_variable_set(:@current_page, page)
+      Rails.logger.debug "Posts in order: #{page_scope.map { |p| "Post #{p.id} (parent_id: #{p.parent_id})" }.join(', ')}"
       
       return redirect_to(last_page_params(page_scope)) if page_beyond_last?(page_scope)
       @posts = Thredded::TopicPostsPageView.new(thredded_current_user, topic, page_scope)
