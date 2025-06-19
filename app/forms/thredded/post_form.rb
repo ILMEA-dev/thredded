@@ -47,8 +47,8 @@ module Thredded
     end
 
     def submit_path
-      if @parent_post
-        Thredded::UrlsHelper.messageboard_topic_posts_path(@messageboard, @topic)
+      if @post.persisted?
+        Thredded::UrlsHelper.messageboard_topic_post_path(@messageboard, @topic, @post)
       else
         Thredded::UrlsHelper.messageboard_topic_posts_path(@messageboard, @topic)
       end
