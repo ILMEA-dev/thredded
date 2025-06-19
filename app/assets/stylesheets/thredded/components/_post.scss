@@ -8,11 +8,12 @@
   border-radius: 5px !important;
   box-shadow: 1px 3px 3px 0px rgba(0, 0, 0, 0.21) !important;
   padding: 10px !important;
+  background: #f6fafb;
 }
 
 .thredded--post.thredded--post--reply {
   margin-left: 3rem !important;
-  background-color: red !important; /* Debug: make it obvious if this is applied */
+  background: #eef5f7;
   @include thredded-media-desktop-and-up {
     margin-left: 4rem !important;
   }
