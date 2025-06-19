@@ -26,8 +26,7 @@ module Thredded
       @post_form = Thredded::PostForm.new(
         user: thredded_current_user,
         topic: parent_topic,
-        post_params: new_post_params,
-        parent_post: parent_post
+        post_params: new_post_params
       )
       authorize_creating @post_form.post
 

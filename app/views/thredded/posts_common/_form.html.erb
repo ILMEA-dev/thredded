@@ -1,8 +1,4 @@
 <%# locals: post, content_label, button_text, button_submitting_text. %>
-<% Rails.logger.debug "DEBUG: post.parent_id=#{post.parent_id.inspect}" %>
-<div id="debug-form-rendered">FORM PARTIAL RENDERED</div>
-<div id="debug-post-class"><%= post.class.name %></div>
-<div id="debug-parent-id"><%= post.parent_id.inspect %></div>
 <%= form_for post,
              url: post.submit_path,
              as: :post,
