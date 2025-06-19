@@ -1,4 +1,5 @@
 <%# locals: post, content_label, button_text, button_submitting_text. %>
+<% Rails.logger.debug "DEBUG: post.parent_id=#{post.parent_id.inspect}" %>
 <%= form_for post,
              url: post.submit_path,
              as: :post,
