@@ -45,12 +45,9 @@ module Thredded
     scope :replies, -> { where.not(parent_id: nil) }
     scope :ordered_by_created_at, -> { order(created_at: :asc) }
     scope :ordered_with_replies, -> {
-      # Order root posts by creation time, then include their replies
-      root_posts = where(parent_id: nil).order(created_at: :asc)
-      replies = where.not(parent_id: nil).order(created_at: :asc)
-      
-      # Create a query that orders by parent_id (NULL first), then by created_at
-      order(Arel.sql('COALESCE(parent_id, id) ASC, created_at ASC'))
+      # Use a CASE statement to create a sort order that groups replies with their parents
+      # Root posts get their own ID as the sort key, replies get their parent's ID
+      order(Arel.sql("CASE WHEN parent_id IS NULL THEN id ELSE parent_id END ASC, created_at ASC"))
     }
 
     after_commit :update_parent_last_user_and_time_from_last_post, on: %i[create destroy]
