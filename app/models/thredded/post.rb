@@ -44,13 +44,19 @@ module Thredded
     scope :root_posts, -> { where(parent_id: nil) }
     scope :replies, -> { where.not(parent_id: nil) }
     scope :ordered_by_created_at, -> { order(created_at: :asc) }
-    scope :ordered_with_replies, -> {
-      # Use a CASE statement to create a sort order that groups replies with their parents
-      # Root posts get their own ID as the sort key, replies get their parent's ID
-      scope = order(Arel.sql("CASE WHEN parent_id IS NULL THEN id ELSE parent_id END ASC, created_at ASC"))
-      Rails.logger.debug "ordered_with_replies SQL: #{scope.to_sql}"
-      scope
-    }
+    
+    def self.ordered_with_replies
+      posts = order(:created_at).to_a
+      posts_by_parent = posts.group_by(&:parent_id)
+
+      build_nested_list(posts_by_parent)
+    end
+
+    def self.build_nested_list(posts_by_parent, parent_id = nil)
+      (posts_by_parent[parent_id] || []).flat_map do |post|
+        [post] + build_nested_list(posts_by_parent, post.id)
+      end
+    end
 
     after_commit :update_parent_last_user_and_time_from_last_post, on: %i[create destroy]
     after_commit :update_parent_last_user_and_time_from_last_post_if_moderation_state_changed, on: :update
