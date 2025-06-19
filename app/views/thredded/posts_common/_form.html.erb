@@ -10,13 +10,16 @@
                  'data-thredded-submit-hotkey' => true,
              } do |form| %>
   <%= form.hidden_field :parent_id, value: post.parent_id %>
+  <%= post.inspect %>
   <ul class="thredded--form-list">
     <%= render 'thredded/posts_common/form/content',
                form: form, content_label: content_label, preview_url: post.preview_path %>
     <li>
-      <% button_submitting_text ||=
-             post.persisted? ? t('thredded.form.update_btn_submitting') : t('thredded.form.create_btn_submitting') %>
-      <button type="submit" class="thredded--form--submit" data-disable-with="<%= button_submitting_text %>">
+      <button
+        type="submit"
+        class="thredded--form--submit bg-blue-600 hover:bg-blue-500 text-white font-semibold py-2 px-4 rounded"
+        style="display:inline-flex; align-items: center; justify-content: center; min-width: 120px; background-color: #2563eb !important;"
+        data-disable-with="<%= button_submitting_text %>">
         <%= button_text %>
       </button>
     </li>
