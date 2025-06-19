@@ -26,16 +26,16 @@ module Thredded
         post_params[:content] =
           Thredded::ContentFormatter.quote_content(post_params.delete(:quote_post).content)
       end
-      
+
       if @parent_post
         post_params[:parent_id] = @parent_post.id
       end
-      
+
       if post_params[:parent]
         @post.parent = post_params[:parent]
         post_params.delete(:parent)
       end
-      
+
       @post.attributes = post_params.merge(
         user: (user unless user.thredded_anonymous?),
         messageboard: topic.messageboard
