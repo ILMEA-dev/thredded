@@ -9,6 +9,7 @@
                  'data-autocomplete-min-length' => Thredded.autocomplete_min_length,
                  'data-thredded-submit-hotkey' => true,
              } do |form| %>
+  <%= form.hidden_field :parent_id, value: post.parent_id %>
   <ul class="thredded--form-list">
     <%= render 'thredded/posts_common/form/content',
                form: form, content_label: content_label, preview_url: post.preview_path %>
