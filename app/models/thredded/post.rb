@@ -44,21 +44,25 @@ module Thredded
     scope :root_posts, -> { where(parent_id: nil) }
     scope :replies, -> { where.not(parent_id: nil) }
     scope :ordered_by_created_at, -> { order(created_at: :asc) }
-    
+
     def self.ordered_with_replies
-      posts = order(:created_at).to_a
-      posts_by_parent = posts.group_by(&:parent_id)
+      # Get all posts
+      all_posts = all.to_a
       
-      ordered_ids = build_nested_list(posts_by_parent).map(&:id)
+      # Get root posts (parent_id is null) ordered by created_at
+      root_posts = all_posts.select { |p| p.parent_id.nil? }.sort_by(&:created_at)
       
-      # Return an ActiveRecord relation with the correct order using PostgreSQL's CASE
-      where(id: ordered_ids).order(Arel.sql("CASE #{ordered_ids.map.with_index { |id, index| "WHEN id = #{id} THEN #{index}" }.join(' ') } END"))
-    end
-    
-    def self.build_nested_list(posts_by_parent, parent_id = nil)
-      (posts_by_parent[parent_id] || []).flat_map do |post|
-        [post] + build_nested_list(posts_by_parent, post.id)
+      # Build the ordered list: root posts first, then their children
+      ordered_posts = []
+      root_posts.each do |root_post|
+        ordered_posts << root_post
+        # Add all children of this root post, ordered by created_at
+        children = all_posts.select { |p| p.parent_id == root_post.id }.sort_by(&:created_at)
+        ordered_posts.concat(children)
       end
+      
+      # Return an ActiveRecord relation with the correct order
+      where(id: ordered_posts.map(&:id)).order(Arel.sql("CASE #{ordered_posts.map.with_index { |post, index| "WHEN id = #{post.id} THEN #{index}" }.join(' ') } END"))
     end
 
     after_commit :update_parent_last_user_and_time_from_last_post, on: %i[create destroy]
