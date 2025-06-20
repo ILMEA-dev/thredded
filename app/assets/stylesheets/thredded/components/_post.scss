@@ -161,3 +161,28 @@
     }
   }
 }
+
+.thredded--reply-to-post {
+  margin-bottom: $thredded-base-spacing;
+  padding: $thredded-base-spacing;
+  background: rgba($thredded-brand, 0.05);
+  border: 1px solid rgba($thredded-brand, 0.2);
+  border-radius: 5px;
+  
+  &--title {
+    @extend %thredded--heading;
+    font-size: $thredded-font-size-small;
+    color: $thredded-secondary-text-color;
+    margin-bottom: $thredded-small-spacing;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .thredded--post {
+    margin-bottom: 0;
+    border: none;
+    box-shadow: none;
+    background: transparent;
+    padding: 0;
+  }
+}
