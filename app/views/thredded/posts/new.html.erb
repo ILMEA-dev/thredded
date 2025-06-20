@@ -4,6 +4,16 @@
 
 <%= thredded_page do %>
   <section class="thredded--main-section">
+    <% if @parent_post %>
+      <div class="thredded--reply-to-post">
+        <h4 class="thredded--reply-to-post--title"><%= t('thredded.posts.form.replying_to') %></h4>
+        <%= content_tag :article, id: dom_id(@parent_post), class: "thredded--post thredded--#{@parent_post.read_state}--post" do %>
+          <%= render 'thredded/posts_common/header', post: @parent_post %>
+          <%= render 'thredded/posts/content', post: @parent_post %>
+        <% end %>
+      </div>
+    <% end %>
+    
     <div class="thredded--post-form--wrapper">
       <h3 class="thredded--post-form--title"><%= t('thredded.posts.form.title_label') %></h3>
       <%= render 'thredded/posts/form',

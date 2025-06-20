@@ -140,6 +140,7 @@ en:
         content_label: Content
         create_btn: Submit Reply
         create_btn_submitting: Posting...
+        replying_to: Replying to
         title_label: Add a post
         update_btn: Update Post
         update_btn_submitting: :thredded.form.update_btn_submitting

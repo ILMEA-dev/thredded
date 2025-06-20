@@ -45,6 +45,10 @@ module Thredded
         parent_post: parent_post
       )
       authorize_creating @post_form.post
+      if parent_post
+        topic_view = "#{parent_post.postable.class}View".constantize.from_user(parent_post.postable, thredded_current_user)
+        @parent_post = Thredded::PostView.new(parent_post, policy(parent_post), topic_view: topic_view)
+      end
       render :new
     end
 
