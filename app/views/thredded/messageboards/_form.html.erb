@@ -19,7 +19,6 @@
             <%= f.check_box :locked %> <%= t 'thredded.messageboard.form.locked_label' %>
         <% end %>
       </li>
-
       <li>
         <%= f.submit messageboard.persisted? ? t('thredded.messageboard.update') : t('thredded.messageboard.create'),
                      class: 'thredded--form--submit',
