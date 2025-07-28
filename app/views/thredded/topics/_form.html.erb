@@ -1,4 +1,3 @@
-<% if policy(Thredded::Messageboard.new).create? %>
   <%= form_for topic,
               url: topic.submit_path,
               html: {
@@ -35,4 +34,3 @@
       <li><%= form.submit t('thredded.topics.form.create_btn'), class: 'thredded--form--submit' %></li>
     </ul>
   <% end %>
-<% end %>
