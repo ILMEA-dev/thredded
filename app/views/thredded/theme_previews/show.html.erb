@@ -23,10 +23,12 @@
 
   <%= render 'section_title', label: 'topics#index', href: messageboard_topics_path(@messageboard) %>
   <%= content_tag :section, class: 'thredded--thredded--main-section topics' do %>
-    <%= render 'thredded/topics/form',
-               topic:        @new_topic,
-               css_class:    'thredded--is-compact',
-               placeholder:  t('thredded.topics.form.title_placeholder_start') %>
+    <% if policy(Thredded::Messageboard.new).create? %>
+      <%= render 'thredded/topics/form',
+                topic:        @new_topic,
+                css_class:    'thredded--is-compact',
+                placeholder:  t('thredded.topics.form.title_placeholder_start') %>
+    <% end %>
     <%= render @topics %>
   <% end %>
   <footer>
@@ -39,10 +41,12 @@
   <%= content_tag :section, id: dom_id(@topic), class: ['thredded--thredded--main-section', topic_css_classes(@topic)] do %>
     <%= render 'thredded/topics/header', topic: @topic %>
     <%= render @posts %>
-    <%= render 'thredded/posts/form',
-               post:         @new_post,
-               button_text:  t('thredded.posts.form.create_btn')
-    %>
+    <% if policy(Thredded::Messageboard.new).create? %>
+      <%= render 'thredded/posts/form',
+                post:         @new_post,
+                button_text:  t('thredded.posts.form.create_btn')
+      %>
+    <% end %>
   <% end %>
 
   <%= render 'section_title', label: 'topics#new', href: new_messageboard_topic_path(@messageboard) %>
