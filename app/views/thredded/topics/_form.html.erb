@@ -1,3 +1,4 @@
+<% if policy(Thredded::Messageboard.new).create? %>
   <%= form_for topic,
               url: topic.submit_path,
               html: {
@@ -31,6 +32,11 @@
                 preview_url: topic.preview_path %>
       <%= render 'thredded/topics/topic_form_admin_options', form: form %>
 
-      <li><%= form.submit t('thredded.topics.form.create_btn'), class: 'thredded--form--submit' %></li>
+      <li><%= form.submit "Create New Topic", class: 'thredded--button bg-blue-600 hover:bg-blue-500 text-white font-semibold py-2 px-4 rounded' %></li>
     </ul>
   <% end %>
+<% else %>
+  <div style="border:1px solid darkblue;border-radius:5px;padding:10px;font-size:14px;background-color:#f6fafb;font-style:italic;margin-bottom:18px;">
+    If you have any questions or would like to submit an idea for a new message board group or topic please contact membership@ilmea.org
+  </div>
+<% end %>
