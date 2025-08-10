@@ -11,7 +11,6 @@
                   'data-thredded-topic-posts-per-page' => Thredded.posts_per_page do %>
       <%= render 'thredded/topics/form',
                 topic: @new_topic,
-                css_class: 'thredded--is-compact',
                 placeholder: t('thredded.topics.form.title_placeholder_start') if @new_topic %>
     <%= render partial: 'thredded/topics/topic',
                collection: @topics,
