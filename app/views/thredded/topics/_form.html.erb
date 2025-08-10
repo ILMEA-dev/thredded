@@ -1,36 +1,42 @@
-<%= form_for topic,
-             url: topic.submit_path,
-             html: {
-                 class: "thredded--form thredded--new-topic-form #{local_assigns[:css_class]}",
-                 'data-thredded-topic-form' => true,
-                 'data-autocomplete-url' => autocomplete_users_path,
-                 'data-autocomplete-min-length' => Thredded.autocomplete_min_length,
-                 'data-thredded-submit-hotkey' => true,
-             } do |form| %>
-  <%= hidden_field_tag("next_page", params[:next_page]) %>
+<% if policy(Thredded::Messageboard.new).create? %>
+  <%= form_for topic,
+              url: topic.submit_path,
+              html: {
+                  class: "thredded--form thredded--new-topic-form #{local_assigns[:css_class]}",
+                  'data-thredded-topic-form' => true,
+                  'data-autocomplete-url' => autocomplete_users_path,
+                  'data-autocomplete-min-length' => Thredded.autocomplete_min_length,
+                  'data-thredded-submit-hotkey' => true,
+              } do |form| %>
+    <%= hidden_field_tag("next_page", params[:next_page]) %>
 
-  <ul class="thredded--form-list on-top">
-    <li class="title">
-      <%= form.label :title, t('thredded.topics.form.title_label') %>
-      <%= form.text_field :title, placeholder: placeholder, required: true, autocomplete: 'off' %>
-      <%= render 'thredded/shared/field_errors', messages: form.object.errors[:title] %>
-    </li>
-
-    <% if form.object.category_options.any? %>
-      <li class="category">
-        <%= form.select :category_ids,
-                        form.object.category_options,
-                        {},
-                        { multiple: true, 'data-placeholder' => t('thredded.topics.form.categories_placeholder') } %>
+    <ul class="thredded--form-list on-top">
+      <li class="title">
+        <%= form.label :title, t('thredded.topics.form.title_label') %>
+        <%= form.text_field :title, placeholder: placeholder, required: true, autocomplete: 'off' %>
+        <%= render 'thredded/shared/field_errors', messages: form.object.errors[:title] %>
       </li>
-    <% end %>
 
-    <%= render 'thredded/posts_common/form/content',
-               form: form,
-               content_label: t('thredded.topics.form.content_label'),
-               preview_url: topic.preview_path %>
-    <%= render 'thredded/topics/topic_form_admin_options', form: form %>
+      <% if form.object.category_options.any? %>
+        <li class="category">
+          <%= form.select :category_ids,
+                          form.object.category_options,
+                          {},
+                          { multiple: true, 'data-placeholder' => t('thredded.topics.form.categories_placeholder') } %>
+        </li>
+      <% end %>
 
-    <li><%= form.submit t('thredded.topics.form.create_btn'), class: 'thredded--form--submit' %></li>
-  </ul>
+      <%= render 'thredded/posts_common/form/content',
+                form: form,
+                content_label: t('thredded.topics.form.content_label'),
+                preview_url: topic.preview_path %>
+      <%= render 'thredded/topics/topic_form_admin_options', form: form %>
+
+      <li><%= form.submit "Create New Topic", class: 'thredded--button bg-blue-600 hover:bg-blue-500 text-white font-semibold py-2 px-4 rounded' %></li>
+    </ul>
+  <% end %>
+<% else %>
+  <div style="border:1px solid darkblue;border-radius:5px;padding:10px;font-size:14px;background-color:#f6fafb;font-style:italic;margin-bottom:18px;">
+    If you have any questions or would like to submit an idea for a new message board group or topic please contact membership@ilmea.org
+  </div>
 <% end %>
